@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Test</title>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #a7d1ed;
+    margin: 0;
+    }
+    #testParagraph {
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    }
+    #inputBox {
+    width: 50%;
+    height:100px;
+    background-color: rgb(254, 254, 255);
+    font-size: 18px;
+    }
+    #result {
+    margin-top: 20px;
+    font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Typing Test</h1>
+
+<p>Stimulate your mind as you test your typing speed with this standard<br> English paragraph typing test.Watch your typing speed and accuracy increase as you<br> learn about a variety of new topics! Over 40 typing test selections available.</p>
+<input type="text" id="inputBox" placeholder="Start typing here..." />
+
+<div id="result"></div>
+
+<script>
+  const testParagraph = document.getElementById('testParagraph').innerText;
+  const inputBox = document.getElementById('inputBox');
+  const result = document.getElementById('result');
+
+  let startTime;
+  let finished = false;
+
+  inputBox.addEventListener('focus', () => {
+    if (!startTime) {
+      startTime = new Date();
+    }
+  });
+
+  inputBox.addEventListener('input', () => {
+    const typedText = inputBox.value;
+
+    if (typedText === testParagraph) {
+      finished = true;
+      const endTime = new Date();
+      const timeTaken = (endTime - startTime) / 1000; 
+
+      const words = testParagraph.split(' ').length;
+      const wpm = (words / timeTaken) * 60;
+
+      result.innerHTML = `Completed!<br>Time: ${timeTaken.toFixed(2)} seconds<br>WPM: ${wpm.toFixed(2)}`;
+      inputBox.disabled = true;
+    }
+  });
+</script>
+
+</body>
+</html>
